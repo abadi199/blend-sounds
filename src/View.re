@@ -18,11 +18,13 @@ let initialState = {
 let str = React.string;
 
 type action =
-  | EditWord(word);
+  | EditWord(word)
+  | UpdateDistance(int);
 
 let reducer = (state, action) => {
   switch (action) {
   | EditWord(word) => {word, display: DisplayPlay, distanceInPct: 100}
+  | UpdateDistance(distance) => {...state, distanceInPct: distance}
   };
 };
 
@@ -31,7 +33,7 @@ let make = (~dispatch, ~state) => {
   module ViewWord = {
     [@react.component]
     let make = (~word) => {
-      <Word word distance=100 />;
+      <Word word distance={state.distanceInPct} />;
     };
   };
 
@@ -52,6 +54,16 @@ let make = (~dispatch, ~state) => {
   | DisplayPlay =>
     <div className="play">
       <ViewWord word={state.word} />
+      <input
+        className="distance-slider"
+        type_="range"
+        name="distance"
+        value={Js.Int.toString(state.distanceInPct)}
+        onChange={_evt => {
+          let value: int = ReactEvent.Form.target(_evt)##value;
+          dispatch(UpdateDistance(value));
+        }}
+      />
       <ActionSection />
     </div>
   };

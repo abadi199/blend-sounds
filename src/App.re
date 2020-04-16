@@ -34,7 +34,6 @@ let make = () => {
        <View
          state=viewState
          dispatch={viewAction => dispatch(ViewAction(viewAction))}
-         onEditButtonClicked={() => ()}
        />
      }}
   </div>;
