@@ -1,0 +1,208 @@
+@import "./styles/reset.scss";
+
+html {
+  background-color: #dfdfdf;
+}
+.app {
+  font-family: "Quicksand", Arial, Helvetica, sans-serif;
+
+  button {
+    border: none;
+    background: #a2a2a2;
+    border-radius: 5px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    line-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .transparent-button {
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0.5;
+    background-color: transparent;
+    font-size: 16px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .add-phoneme,
+  .remove-phoneme {
+    font-size: 40px;
+    margin-left: 10px;
+    margin-top: 10px;
+    width: 50px;
+    height: 50px;
+  }
+
+  .word {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .sound {
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background-color: rgba(255, 255, 255, 1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-top-style: solid;
+    font-size: 200px;
+    padding: 100px;
+  }
+
+  .play {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: 100vh;
+    .action {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+    .edit-button {
+      background-image: url("./icons/settings-24px.svg");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+    }
+  }
+
+  .edit {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    grid-template-rows: min-content 1fr;
+    .selection {
+      padding: 10px;
+      background: #bcbcbc;
+      display: flex;
+      flex-wrap: wrap;
+      overflow-y: auto;
+      align-items: flex-start;
+      justify-content: center;
+      align-content: flex-start;
+      .phoneme {
+        border-top-width: 20px;
+        border-radius: 15px;
+        width: 80px;
+        height: 120px;
+        margin: 10px;
+        font-size: 40px;
+      }
+    }
+    .action {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .close-button {
+    background-image: url("./icons/close-24px.svg");
+  }
+  .save-button {
+    background-image: url("./icons/save-24px.svg");
+  }
+  .load-button {
+    background-image: url("./icons/folder_open-24px.svg");
+  }
+  .view-button {
+    background-image: url("./icons/play_circle_filled-24px.svg");
+  }
+  .next-button {
+    background-image: url("./icons/arrow_forward_ios-black-24dp.svg");
+  }
+  .prev-button {
+    background-image: url("./icons/arrow_back_ios-black-24dp.svg");
+  }
+  .shuffle-button {
+    background-image: url("./icons/shuffle-black-24dp.svg");
+  }
+
+  .selected {
+    &.active {
+      background: #bcbcbc;
+    }
+    .phoneme {
+      border-top-width: 20px;
+      border-radius: 15px;
+      width: 100px;
+      height: 150px;
+      margin: 10px 10px;
+      font-size: 60px;
+    }
+  }
+
+  .play {
+    .phoneme {
+      border-radius: 20px;
+      border-top-width: 40px;
+      margin: 0 20px;
+      width: 250px;
+      height: 360px;
+      font-size: 150px;
+    }
+  }
+
+  .saved-words {
+    padding: 50px;
+    height: 100vh;
+    width: 100vw;
+    background-color: #bcbcbc;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-items: flex-start;
+    overflow: auto;
+
+    .word {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      .phoneme {
+        margin-right: 5px;
+      }
+      margin: 0 10px 20px;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      .delete-word-button {
+        height: 30px;
+        width: 30px;
+        background-image: url("./icons/close-24px.svg");
+        padding: 0px;
+        margin-left: 5px;
+      }
+    }
+
+    .close-button {
+      position: fixed;
+      top: 5px;
+      right: 5px;
+      background-size: 40px;
+    }
+  }
+
+  .navigation {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    position: fixed;
+    width: 100vw;
+    bottom: 0;
+  }
+}
