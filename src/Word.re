@@ -42,7 +42,7 @@ let rec findNext: (list(word), word) => option(word) =
 let str = React.string;
 
 let calculateWidth = (): int => {
-  let innerWidth: int = [%bs.raw {|"window.innerWidth"|}];
+  let innerWidth: int = [%bs.raw {|window.innerWidth|}];
   let wordsWidth = [%bs.raw
     {|
     Array
@@ -51,6 +51,7 @@ let calculateWidth = (): int => {
       .reduce(function(a,b) { return a + b; }, 0)
 |}
   ];
+  Js.Console.log(innerWidth);
   innerWidth - wordsWidth;
 };
 
