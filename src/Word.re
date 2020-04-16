@@ -41,17 +41,14 @@ let rec findNext: (list(word), word) => option(word) =
 
 let str = React.string;
 
-[@bs.val] external innerWidth: int = "window.innerWidth";
 let calculateWidth = (): int => {
+  let innerWidth: int = [%bs.raw {|"window.innerWidth"|}];
   let wordsWidth = [%bs.raw
     {|
-    Array.from(document.getElementsByClassName("sound"))
-    .map(function(elem) {
-      return elem.getBoundingClientRect().width;
-    })
-    .reduce(function(a,b) {
-      return a + b;
-    }, 0)
+    Array
+      .from(document.getElementsByClassName("sound"))
+      .map(function(elem) { return elem.getBoundingClientRect().width; })
+      .reduce(function(a,b) { return a + b; }, 0)
 |}
   ];
   innerWidth - wordsWidth;
