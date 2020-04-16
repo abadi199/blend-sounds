@@ -47,6 +47,25 @@ html {
     border-top-style: solid;
     font-size: 200px;
     padding: 100px;
+    position: relative;
+
+    &.left {
+      padding-left: 0;
+      z-index:1;
+    }
+    &.right {
+      padding-right: 0;
+      z-index:2;
+    }
+  }
+
+  .blocker {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 100px;
+    height: 100%;
+    background: white;
   }
 
   .play {

@@ -51,7 +51,6 @@ let calculateWidth = (): int => {
       .reduce(function(a,b) { return a + b; }, 0)
 |}
   ];
-  Js.Console.log(innerWidth);
   innerWidth - wordsWidth;
 };
 
@@ -61,8 +60,8 @@ let make = (~word: word, ~distance: int) => {
   let width = Js.Int.toString(calculateWidth() * distance / 100) ++ "px";
 
   <div className="word">
-    <Sound sound=first />
+    <Sound sound=first alignment=Right />
     <span className="gap" style={ReactDOMRe.Style.make(~width, ())} />
-    <Sound sound=second />
+    <Sound sound=second alignment=Left />
   </div>;
 };
