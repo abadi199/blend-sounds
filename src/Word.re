@@ -1,70 +1,62 @@
 open Sound;
 
-type word = (sound, sound);
-
-let toString = ((first, second): word): string => {
-  Sound.toString(first) ++ "," ++ Sound.toString(second);
-};
-
-let fromString = (word: string): option(word) => {
-  let split = word |> String.split_on_char(',');
-  if (List.length(split) == 2) {
-    Some((
-      List.nth(split, 0) |> Sound.fromString,
-      List.nth(split, 1) |> Sound.fromString,
-    ));
-  } else {
-    None;
-  };
-};
-let rec findPrev: (list(word), word) => option(word) =
-  (words, word) => {
-    let wordStr = toString(word);
-    switch (words) {
-    | [] => None
-    | [_] => None
-    | [a, b, ..._rest] when toString(b) == wordStr => Some(a)
-    | [_, ...rest] => findPrev(rest, word)
-    };
-  };
-
-let rec findNext: (list(word), word) => option(word) =
-  (words, word) => {
-    let wordStr = toString(word);
-    switch (words) {
-    | [] => None
-    | [_] => None
-    | [a, b, ..._rest] when toString(a) == wordStr => Some(b)
-    | [_, ...rest] => findNext(rest, word)
-    };
-  };
-
 let str = React.string;
 
-[@bs.val] external innerWidth: int = "window.innerWidth";
 let calculateWidth = (): int => {
+  let innerWidth: int = [%bs.raw {|window.innerWidth|}];
   let wordsWidth = [%bs.raw
     {|
-    Array.from(document.getElementsByClassName("sound"))
-    .map(function(elem) {
-      return elem.getBoundingClientRect().width;
-    })
-    .reduce(function(a,b) {
-      return a + b;
-    }, 0)
+    Array
+      .from(document.getElementsByClassName("sound"))
+      .map(function(elem) { return elem.getBoundingClientRect().width; })
+      .reduce(function(a,b) { return a + b; }, 0)
 |}
   ];
   innerWidth - wordsWidth;
 };
 
+type state = {
+  left: Sound.state,
+  right: Sound.state,
+};
+
+let initialState = {
+  left: Sound.initialState(Right),
+  right: Sound.initialState(Left),
+};
+
+type action =
+  | LeftAction(Sound.action)
+  | RightAction(Sound.action);
+
+let reducer = (state, action) => {
+  switch (action) {
+  | LeftAction(leftAction) => {
+      ...state,
+      left: Sound.reducer(state.left, leftAction),
+    }
+  | RightAction(rightAction) => {
+      ...state,
+      right: Sound.reducer(state.right, rightAction),
+    }
+  };
+};
+
 [@react.component]
-let make = (~word: word, ~distance: int) => {
-  let (first, second) = word;
+let make = (~state, ~distance, ~dispatch) => {
   let width = Js.Int.toString(calculateWidth() * distance / 100) ++ "px";
 
   <div className="word">
-    <Sound sound=first />
+    <Sound
+      alignment=Right
+      state={state.left}
+      dispatch={soundAction => dispatch(LeftAction(soundAction))}
+    />
     <span className="gap" style={ReactDOMRe.Style.make(~width, ())} />
-    <Sound sound=second />
+    <Sound
+      alignment=Left
+      state={state.right}
+      dispatch={soundAction => dispatch(RightAction(soundAction))}
+    />
   </div>;
 };

@@ -37,16 +37,67 @@ html {
     overflow: hidden;
   }
 
+  .sound-input {
+    font-family: "Quicksand", Arial, Helvetica, sans-serif;
+    font-size: 200px;
+    width: 100%;
+    padding: 0;
+    margin: -25px;
+    border: none;
+  }
+
   .sound {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background-color: rgba(255, 255, 255, 1);
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     border-top-style: solid;
     font-size: 200px;
     padding: 100px;
+    position: relative;
+
+    &.left {
+      padding-left: 0;
+      z-index: 1;
+    }
+    &.right {
+      padding-right: 0;
+      z-index: 2;
+    }
+    .blank {
+      background: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      .line {
+        width: calc(100% - 80px);
+        bottom: calc(50% - 0.5em);
+        height: 10px;
+        margin: 0 40px;
+        background: black;
+        position: absolute;
+      }
+      canvas {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+      }
+    }
+  }
+
+  .blocker {
+    position: absolute;
+    top: 0;
+    right: 100%;
+    width: 100px;
+    height: 100%;
+    background: white;
   }
 
   .play {
@@ -56,15 +107,32 @@ html {
     grid-template-rows: 100vh;
     .action {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      display: flex;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      margin-bottom: 10px;
+      justify-content: center;
     }
+    .blank-button,
+    .text-button,
     .edit-button {
-      background-image: url("./icons/settings-24px.svg");
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0.5;
+    }
+    .blank-button {
+      background-image: url("./icons/visibility_off-24px.svg");
+    }
+    .text-button {
+      background-image: url("./icons/visibility-24px.svg");
+    }
+    .edit-button {
+      background-image: url("./icons/edit-24px.svg");
+    }
+    .save-button {
+      background-image: url("./icons/save-24px.svg");
     }
   }
 

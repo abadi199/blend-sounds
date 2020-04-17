@@ -23,7 +23,6 @@ let make = () => {
         | (ViewAction(viewAction), View(viewState)) =>
           View(View.reducer(viewState, viewAction))
         | (ViewClicked, _) => toView(state)
-        | _ => state
         }
       },
       View(View.initialState),
