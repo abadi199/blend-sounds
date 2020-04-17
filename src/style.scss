@@ -37,6 +37,15 @@ html {
     overflow: hidden;
   }
 
+  .sound-input {
+    font-family: "Quicksand", Arial, Helvetica, sans-serif;
+    font-size: 200px;
+    width: 100%;
+    padding: 0;
+    margin: -25px;
+    border: none;
+  }
+
   .sound {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background-color: rgba(255, 255, 255, 1);
@@ -71,14 +80,13 @@ html {
         background: black;
         position: absolute;
       }
-      canvas{
+      canvas {
         position: absolute;
         width: 100%;
         height: 100%;
         top: 0;
         left: 0;
         background-color: white;
-
       }
     }
   }
@@ -106,19 +114,25 @@ html {
       margin-bottom: 10px;
       justify-content: center;
     }
-    .blank-button {
-      background-image: url("./icons/visibility_off-24px.svg");
+    .blank-button,
+    .text-button,
+    .edit-button {
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
       opacity: 0.5;
     }
+    .blank-button {
+      background-image: url("./icons/visibility_off-24px.svg");
+    }
     .text-button {
       background-image: url("./icons/visibility-24px.svg");
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      opacity: 0.5;
+    }
+    .edit-button {
+      background-image: url("./icons/edit-24px.svg");
+    }
+    .save-button {
+      background-image: url("./icons/save-24px.svg");
     }
   }
 

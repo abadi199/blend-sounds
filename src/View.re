@@ -9,7 +9,7 @@ type state = {
 
 let initialState = {
   display: DisplayPlay,
-  distanceInPct: 100,
+  distanceInPct: 0,
   word: Word.initialState,
 };
 
