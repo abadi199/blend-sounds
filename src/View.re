@@ -4,18 +4,28 @@ type display =
 type state = {
   display,
   distanceInPct: int,
+  word: Word.state,
 };
 
-let initialState = {display: DisplayPlay, distanceInPct: 100};
+let initialState = {
+  display: DisplayPlay,
+  distanceInPct: 100,
+  word: Word.initialState,
+};
 
 let str = React.string;
 
 type action =
-  | UpdateDistance(int);
+  | UpdateDistance(int)
+  | WordAction(Word.action);
 
 let reducer = (state, action) => {
   switch (action) {
   | UpdateDistance(distance) => {...state, distanceInPct: distance}
+  | WordAction(wordAction) => {
+      ...state,
+      word: Word.reducer(state.word, wordAction),
+    }
   };
 };
 
@@ -24,7 +34,11 @@ let make = (~dispatch, ~state) => {
   module ViewWord = {
     [@react.component]
     let make = () => {
-      <Word distance={state.distanceInPct} />;
+      <Word
+        distance={state.distanceInPct}
+        state={state.word}
+        dispatch={wordAction => dispatch(WordAction(wordAction))}
+      />;
     };
   };
 

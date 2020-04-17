@@ -26,7 +26,7 @@ let initialState = alignment => {
     mode: Text,
     sound:
       if (alignment == Right) {
-        "bl";
+        "cl";
       } else {
         "ock";
       },
@@ -40,19 +40,16 @@ type action =
   | EditClicked
   | TextClicked;
 
+let reducer = (state, action) => {
+  switch (action) {
+  | BlankClicked => {...state, mode: Blank}
+  | EditClicked => {...state, mode: Edit}
+  | TextClicked => {...state, mode: Text}
+  };
+};
+
 [@react.component]
-let make = (~alignment) => {
-  let (state, dispatch) =
-    React.useReducer(
-      (state, action) => {
-        switch (action) {
-        | BlankClicked => {...state, mode: Blank}
-        | EditClicked => {...state, mode: Edit}
-        | TextClicked => {...state, mode: Text}
-        }
-      },
-      initialState(alignment),
-    );
+let make = (~alignment, ~state, ~dispatch) => {
   <div className={"sound " ++ alignmentToString(alignment)}>
     <span className="text"> {str(state.sound)} </span>
     {if (state.mode == Blank) {
