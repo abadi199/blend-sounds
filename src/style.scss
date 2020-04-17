@@ -43,7 +43,6 @@ html {
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
     border-top-style: solid;
     font-size: 200px;
     padding: 100px;
@@ -51,11 +50,36 @@ html {
 
     &.left {
       padding-left: 0;
-      z-index:1;
+      z-index: 1;
     }
     &.right {
       padding-right: 0;
-      z-index:2;
+      z-index: 2;
+    }
+    .blank {
+      background: white;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      .line {
+        width: calc(100% - 80px);
+        bottom: calc(50% - 0.5em);
+        height: 10px;
+        margin: 0 40px;
+        background: black;
+        position: absolute;
+      }
+      canvas{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        background-color: white;
+
+      }
     }
   }
 
@@ -75,11 +99,22 @@ html {
     grid-template-rows: 100vh;
     .action {
       position: absolute;
-      top: 10px;
-      right: 10px;
+      display: flex;
+      bottom: 100%;
+      left: 0;
+      width: 100%;
+      margin-bottom: 10px;
+      justify-content: center;
     }
-    .edit-button {
-      background-image: url("./icons/settings-24px.svg");
+    .blank-button {
+      background-image: url("./icons/visibility_off-24px.svg");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0.5;
+    }
+    .text-button {
+      background-image: url("./icons/visibility-24px.svg");
       background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
