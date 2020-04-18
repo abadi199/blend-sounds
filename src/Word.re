@@ -21,8 +21,8 @@ type state = {
 };
 
 let initialState = {
-  left: Sound.initialState(Right),
-  right: Sound.initialState(Left),
+  left: Sound.initialState(Left),
+  right: Sound.initialState(Right),
 };
 
 type action =
@@ -48,13 +48,13 @@ let make = (~state, ~distance, ~dispatch) => {
 
   <div className="word">
     <Sound
-      alignment=Right
+      side=Left
       state={state.left}
       dispatch={soundAction => dispatch(LeftAction(soundAction))}
     />
     <span className="gap" style={ReactDOMRe.Style.make(~width, ())} />
     <Sound
-      alignment=Left
+      side=Right
       state={state.right}
       dispatch={soundAction => dispatch(RightAction(soundAction))}
     />

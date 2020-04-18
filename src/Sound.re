@@ -2,13 +2,13 @@ type mode =
   | Text
   | Blank;
 
-type alignment =
+type side =
   | Left
   | Center
   | Right;
 
-let alignmentToString = (alignment: alignment): string => {
-  switch (alignment) {
+let sideToString = (side): string => {
+  switch (side) {
   | Left => "left"
   | Center => "center"
   | Right => "right"
@@ -21,12 +21,12 @@ type state = {
   edit: bool,
 };
 
-let initialState = alignment => {
+let initialState = side => {
   {
     mode: Text,
     edit: false,
     sound:
-      if (alignment == Right) {
+      if (side == Left) {
         "cl";
       } else {
         "ock";
@@ -53,11 +53,14 @@ let reducer = (state, action) => {
 
 module ViewText = {
   [@react.component]
-  let make = (~state) => {
+  let make = (~state, ~side) => {
     <>
       <span className="text"> {str(state.sound)} </span>
       {if (state.mode == Blank) {
-         <span className="blank"> <canvas /> <span className="line" /> </span>;
+         <span className="blank">
+           <PenArea id={sideToString(side)} />
+           <span className="line" />
+         </span>;
        } else {
          str("");
        }}
@@ -119,13 +122,13 @@ module EditText = {
 };
 
 [@react.component]
-let make = (~alignment, ~state, ~dispatch) => {
+let make = (~side, ~state, ~dispatch) => {
   let (value, setValue) = React.useState(_ => state.sound);
-  <div className={"sound " ++ alignmentToString(alignment)}>
+  <div className={"sound " ++ sideToString(side)}>
     {if (state.edit) {
        <EditText value setValue />;
      } else {
-       <ViewText state />;
+       <ViewText state side />;
      }}
     <div className="action">
       <ModeButton state dispatch />

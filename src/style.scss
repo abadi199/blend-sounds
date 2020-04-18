@@ -57,11 +57,11 @@ html {
     padding: 100px;
     position: relative;
 
-    &.left {
+    &.right {
       padding-left: 0;
       z-index: 1;
     }
-    &.right {
+    &.left {
       padding-right: 0;
       z-index: 2;
     }
